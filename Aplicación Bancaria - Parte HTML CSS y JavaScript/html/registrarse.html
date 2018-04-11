@@ -1,0 +1,107 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> Registrarse</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+		<center>
+			<header><h1>Aplicación Bancaria</h1></header>
+			<h1><u>Registrate</u></h1>
+			<form name="signIn" action="" method="post">
+				<fieldset>
+					<table>
+					<legend>Datos de Cliente</legend>
+						<tr>
+							<td><label for="clientID">ID de Cliente</label></td>
+							<td><input type="text" id="clientID" required><br></td>
+						</tr>
+						<tr>
+							<td><legend>Tipo de Cliente</legend></td>
+							<td>
+								<ul> 
+									<li>
+										<label>
+											<input type="radio" value="Regular" name="type" required>Regular
+										</label>   
+									</li> 
+									<li>
+										<label>
+											<input type="radio" value="VIP" name="type" required>VIP
+										</label>   
+									</li> 
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td><label for="name">Nombre</label></td>
+							<td><input type="text" id="name" required></td>
+						</tr>
+						<tr>
+							<td><label for="surname">Apellido</label></td>
+							<td><input type="text" id="surname" required></td>
+						</tr>
+						<tr>
+							<td><label for="password">Clave</label></td>
+							<td><input type="password" id="password" required></td>
+						</tr>
+						<tr>
+							<td><label for="dni">DNI</label></td>
+							<td><input type="text" id="dni" required></td>
+						</tr>
+						<tr>
+							<td><label for="birthday">Fecha de Nacimiento</label></td>
+							<td><input type="date" id="birthday" required></td>
+						</tr>
+						<tr>
+							<td><label for="age">Edad</label></td>
+							<td><input type="number" id="age" min="0" required></td>
+						</tr>
+						<tr>
+							<td><label for="nationality">Nacionalidad</label></td>
+							<td><input type="text" id="nationality" required></td>
+						</tr>
+						<tr>
+							<td><label for="landLine">Telèfono Fijo</label></td>
+							<td><input type="tel" id="landLine" required></td>
+						</tr>
+						<tr>
+							<td><label for="movilePhone">Telèfono Celular</label></td>
+							<td><input type="tel" id="movilePhone" required></td>
+						</tr>
+						<tr>
+							<td><label for="email">Email</label></td>
+							<td><input type="email" id="email" required></td>
+						</tr>
+						<tr>
+							<td><label for="address">Direcciòn</label></td>
+							<td><input type="text" id="address" required></td>
+						</tr>
+						<tr>
+							<td><label for="zipCode">Còdigo Postal</label></td>
+							<td><input type="text" id="zipCode" required></td>
+						</tr>
+						<tr>
+							<td><label for="province">Provincia</label></td>
+							<td><input type="text" id="province" required></td>
+						</tr>
+						<tr>
+							<td><label for="country">Paìs</label></td>
+							<td><input type="text" id="country" required></td>
+						</tr>
+						<tr>
+							<td><input type="reset" id="reset" value="Rehacer"></td>
+							<td><button type="submit" id="send" onclick="sendForm()">Resgistrarse</button></td>
+						<tr>
+					</table>
+				</fieldset>
+			</form>
+			<p><a href="index.html">iniciar sesion</a></p>
+			<br>
+			<br>
+			<br>
+		</center>
+		<footer><tt><center>2018 - Esta pàgina fue diseñada por Plan 111Mil Programadores - Turno sàbado</center></tt></footer>
+		<script src="js/sendForm.js"></script>
+	</body>
+</html>

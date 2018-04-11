@@ -1,0 +1,45 @@
+<!Doctype html> 
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Resumen de Cuenta</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+		<center>
+			<header><h1>Aplicación Bancaria</h1></header>
+			<nav>
+				<a class="bar" href="menu.html">Menù</a>
+				<a class="bar" href="transacciones.html">Transacciones</a> 
+				<a class="bar" href="resumen.html">Resumen de Cuenta</a>
+				<a class="bar" href="datos.html">Datos Personales</a>
+				<a class="bar" href="index.html">Salir</a>
+			</nav>
+			<h2>Seleccione el intervalo de fechas para ver los movimientos</u></h2>
+			<form name="account summary" action="" method="post">
+				<fieldset>	
+					<table>
+						<legend>Resumen de Cuenta</legend>
+						<tr>
+							<td><label for="initial">Fecha inicial</label></td>
+							<td><input type="date" id="initial"></td>
+						</tr>
+						<tr>
+							<td><label for="final">Fecha final</label></td>
+							<td><input type="date" id="final"></td>
+						</tr>
+						<tr>
+							<td><input type="reset" id="reset" value="Rehacer"></td>
+							<td><button type="submit" id="send" onclick="movimientos()">Optener movimientos</button></td>
+						<tr>
+					</table>
+				</fieldset>
+			</form>
+			<br>
+			<br>
+			<br>
+		</center>
+	<footer><tt><center>2018 - Esta pàgina fue diseñada por Plan 111Mil Programadores - Turno sàbado</center></tt></footer>
+	<script  src="js/movimientos.js"></script>
+	</body>
+</html>
