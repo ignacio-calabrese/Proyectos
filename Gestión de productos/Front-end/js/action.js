@@ -5,11 +5,12 @@ $(document).on("ready", function(){
         var name = document.getElementsById("#name").value;
         var description = document.getElementsById("#description").value;
         var stock = document.getElementsById("#stock").value;
+        var code = document.getElementsById("#code").value;
 
         var data = $("#dataForm").serialize();
         
         var insertTable = function(){
-            if [ name = "" || description = "" || stock < 0 ] {
+            if [code < 0 || name = "" || description = "" || stock < 0 ] {
                 alert("Debe llenar todos los campos");
             } else {
                 alert("Todos los datos se ingresaron correctamente");
@@ -21,8 +22,10 @@ $(document).on("ready", function(){
         };
         
         var deleteTable = function(){
-            if [ name = "" || description = "" || stock < 0 ] {
+            if [ code < 0 || name = "" || description = "" || stock < 0 ] {
                 alert("Debe llenar al menos un campo");
+            } else if [ code = code.value ] {
+                alert("Se elimino la fila de code: " + code.value);
             } else if [ name = name.value ] {
                 alert("Se elimino la fila de nombre: " + nombre.value);
             } else if [ description = description.value ] {

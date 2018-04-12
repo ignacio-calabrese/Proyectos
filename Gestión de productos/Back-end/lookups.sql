@@ -1,3 +1,12 @@
+-- Bùsquedas --
+CREATE OR REPLACE FUNCTION management.products_lookup_by_code_id (
+	IN p_code             integer
+) RETURNS SETOF management.products AS 
+$$
+	SELECT * FROM management.products WHERE code_id  = p_code;
+$$ LANGUAGE sql STRICT STABLE
+SET search_path FROM CURRENT;
+
 CREATE OR REPLACE FUNCTION management.products_lookup_by_name (
 	IN p_name            text
 ) RETURNS SETOF management.products AS 
@@ -21,3 +30,4 @@ $$
 	SELECT * FROM management.products WHERE stock = p_stock;
 $$ LANGUAGE sql STRICT STABLE
 SET search_path FROM CURRENT;
+

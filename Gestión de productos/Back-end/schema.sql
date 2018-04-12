@@ -1,0 +1,3 @@
+-- Esquema --
+CREATE SCHEMA management;
+
