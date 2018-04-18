@@ -19,7 +19,7 @@
         <br>
         <div class="row">
             <div class="offset-sm-4">
-                <form action="" method="post" id="dataForm">
+                <form action="gestion/rest/products/servlet" method="post" id="dataForm">
                     <legend class="text-justify">Gestión de Productos</legend>
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3" for="action">Acción</label>
@@ -39,27 +39,28 @@
                     <div class="form-group row">
                         <label for="stock" class="col-form-label col-sm-3">Còdigo de Producto</label>
                         <div class="col-sm-9">
-                            <input type="number"min="0" name="code" id="code" class="form-control">
+                            <input type="number"min="0" id="code" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="name" class="col-form-label col-sm-3">Nombre</label>
                         <div class="col-sm-9">
-                            <input type="text" name="name" id="name" class="form-control">
+                            <input type="text" id="name" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="description" class="col-form-label col-sm-3">Descripción</label>
                         <div class="col-sm-9">
-                            <input type="text" name="description" id="description" class="form-control">
+                            <input type="text" id="description" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="stock" class="col-form-label col-sm-3">Cantidad</label>
                         <div class="col-sm-9">
-                            <input type="number" min="0" name="stock" id="stock" class="form-control">
+                            <input type="number" min="0" id="stock" class="form-control">
                         </div>
                     </div>
+                    <input type="hidden" name="products" id="products">
                     <div class="form-group row">
                         <button type="submit" class="btn btn-primary">Enviar</button>
                         <button type="reset" class="btn btn-danger offset-sm-6">Resetear</button>

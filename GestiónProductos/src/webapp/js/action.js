@@ -1,13 +1,19 @@
 $(document).on("ready", function(){
     $("#dataForm").on("submit", function(){
     
-        var action = document.getElementsById("#action").value;
-        var name = document.getElementsById("#name").value;
-        var description = document.getElementsById("#description").value;
-        var stock = document.getElementsById("#stock").value;
-        var code = document.getElementsById("#code").value;
+        var action = $("#action").val();
+        
+        var products = {
+            code: $("#code").val(),
+            name: $("#name").val(),
+            description: $("#description").val(),
+            stock: $("#stock").val()
+        }
 
-        var data = $("#dataForm").serialize();
+        alert("Se " + action + " los datos " + JSON.stringify(products));
+
+        /*
+        var products = $("#dataForm").serialize();
         
         var insertTable = function(){
             if [code < 0 || name = "" || description = "" || stock < 0 ] {
@@ -78,7 +84,7 @@ $(document).on("ready", function(){
                 alert("Dede elejir una acción a realizar");
                 break;
             };
-
+    */
  
     });
 });

@@ -15,6 +15,7 @@ software.sql: \
 	schema.sql \
 	tables_adt.sql \
 	constructors.sql \
+	conectors.sql \
 	delete.sql \
 	getters.sql \
 	setters.sql\
@@ -26,6 +27,7 @@ software.sql: \
 	cat schema.sql >> software.sql
 	cat tables_adt.sql >> software.sql
 	cat constructors.sql >> software.sql
+	cat conectors.sql >> software.sql
 	cat delete.sql >> software.sql
 	cat getters.sql >> software.sql
 	cat setters.sql >> software.sql
@@ -35,3 +37,4 @@ software.sql: \
 	
 clean:
 	$(RM) software.sql
+	$(CLIENT) $(FLAGS) "DROP DATABASE IF EXISTS gestionproductos" postgres
