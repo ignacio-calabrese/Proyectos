@@ -1,4 +1,4 @@
-package com.mbielenia;
+package com.*;
 
 import java.sql.DriverManager;
 import java.sql.Connection;

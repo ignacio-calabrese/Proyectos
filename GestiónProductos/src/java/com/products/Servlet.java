@@ -1,6 +1,6 @@
-package com.mbielenia.owner;
+package com.products;
 
-import com.mbielenia.PGConnector;
+import com.PGConnector;
 
 import java.io.IOException;
 
