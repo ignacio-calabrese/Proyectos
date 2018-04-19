@@ -1,6 +1,6 @@
-package com.products;
+package com.ignacio.products;
 
-import com.PGConnector;
+import com.ignacio.PGConnector;
 
 import java.io.IOException;
 
@@ -15,9 +15,9 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.annotation.WebServlet;
 import org.json.*;
 
-@WebServlet("/gestion/rest/products/servlet")
+//@WebServlet("/gestion/rest/products/servlet")
 public class Servlet extends HttpServlet {
-	@Override
+	//@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String products = request.getParameter("products");
 		

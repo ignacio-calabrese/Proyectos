@@ -1,4 +1,4 @@
-package com.*;
+package com.ignacio;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
