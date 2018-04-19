@@ -1,3 +1,4 @@
+-- Conector --
 CREATE OR REPLACE FUNCTION management.products_webapi_create (
 	IN p_products                    jsonb
 ) RETURNS void AS $$
