@@ -1,4 +1,4 @@
--- Getters --
+﻿-- Getters --
 CREATE OR REPLACE FUNCTION management.products_get_code_id (
 	IN p_products	management.products
 ) RETURNS integer AS 

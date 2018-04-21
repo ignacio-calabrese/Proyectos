@@ -14,26 +14,26 @@ deploy: software.sql
 software.sql: \
 	schema.sql \
 	tables_adt.sql \
-	constructors.sql \
 	conectors.sql \
 	delete.sql \
 	getters.sql \
 	setters.sql\
 	identifiers.sql\
 	lookups.sql \
-	view_all.sql
+	view_all.sql \
+	constructors.sql 
 
 	touch software.sql
 	cat schema.sql >> software.sql
 	cat tables_adt.sql >> software.sql
 	cat constructors.sql >> software.sql
-	cat conectors.sql >> software.sql
 	cat delete.sql >> software.sql
 	cat getters.sql >> software.sql
 	cat setters.sql >> software.sql
 	cat identifiers.sql >> software.sql
 	cat lookups.sql >> software.sql
 	cat view_all.sql >> software.sql
+	cat conectors.sql >> software.sql
 	
 clean:
 	$(RM) software.sql
