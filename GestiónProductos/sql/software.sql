@@ -168,12 +168,12 @@ END;
 $$ LANGUAGE plpgsql VOLATILE STRICT
 SET search_path FROM CURRENT;
 
--- Identificadores --
+﻿-- Identificadores --
 CREATE OR REPLACE FUNCTION management.products_identify_by_code_id (
 	IN p_code             integer
 ) RETURNS management.products AS 
 $$
-	SELECT * FROM management.products WHERE code_id  = p_code;
+	SELECT * FROM management.products WHERE code_id = p_code;
 $$ LANGUAGE sql STRICT STABLE
 SET search_path FROM CURRENT;
 

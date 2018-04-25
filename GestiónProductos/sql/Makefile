@@ -8,9 +8,20 @@ all: deploy
 deploy: software.sql
 	$(CLIENT) $(FLAGS) "DROP DATABASE IF EXISTS gestionproductos" postgres
 	$(CLIENT) $(FLAGS) "CREATE DATABASE gestionproductos" postgres
-	$(CLIENT) gestionproductos < software.sql
-	$(CLIENT) gestionproductos < constructors.sql
+	# $(CLIENT) gestionproductos < software.sql
+	# $(CLIENT) gestionproductos < constructors.sql
 	 
+	$(CLIENT) gestionproductos < schema.sql 
+	$(CLIENT) gestionproductos < tables_adt.sql 
+	$(CLIENT) gestionproductos < conectors.sql 
+	$(CLIENT) gestionproductos < delete.sql 
+	$(CLIENT) gestionproductos < getters.sql 
+	$(CLIENT) gestionproductos < setters.sql
+	$(CLIENT) gestionproductos < identifiers.sql
+	$(CLIENT) gestionproductos < lookups.sql 
+	$(CLIENT) gestionproductos < view_all.sql 
+	$(CLIENT) gestionproductos <constructors.sql 
+	
 software.sql: \
 	schema.sql \
 	tables_adt.sql \
