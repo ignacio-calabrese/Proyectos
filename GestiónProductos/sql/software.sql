@@ -1,551 +1,181 @@
--- Esquema --
-CREATE SCHEMA management;
 
--- Tablas --
-CREATE TABLE management.products (
-    code_id                       integer PRIMARY KEY CHECK(code_id > 0),
-    name                          text NOT NULL,
-    description                   text NOT NULL,
-    stock                         integer CHECK(stock >= 0)
+CREATE TABLE product (
+	id                            serial PRIMARY KEY,
+	name                          text NOT NULL UNIQUE,
+	descrition                    text,
+	stock                         integer NOT NULL CHECK (stock >= 0) DEFAULT 0
 );
 
-﻿ -- Constructor --
-CREATE OR REPLACE FUNCTION management.products_constructor(
-    IN p_code      integer, 
-    IN p_name    text,
-    IN p_description   text,
-    IN p_stock  integer
-) RETURNS boolean AS $$
-DECLARE
-    products_count  integer;
-BEGIN
-    products_count := count(1) FROM management.products WHERE code_id = p_code;
-    IF products_count = 0
-    THEN
-        INSERT INTO management.products(code_id, name, description, stock) VALUES(
-            p_code,
-            p_name, 
-            p_description, 
-            p_stock
-        );
-        
-        RETURN TRUE;
-	ELSE 
-		RAISE WARNING 'ERROR: YA EXISTEN EN LA BASE DE DATOS';
-		RETURN FALSE;
-	 END IF;
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-
-
--- Borrado--
-CREATE OR REPLACE FUNCTION management.products_delete_row_by_code_id (
-	IN p_code             integer
-) RETURNS boolean AS $$
-BEGIN 
-	IF EXISTS (SELECT 1 FROM management.products WHERE code_id = p_code)
-	THEN 
-		DELETE FROM management.products WHERE code_id = p_code;
-		
-		RETURN TRUE;
-	ELSE 
-		RAISE WARNING 'La fila a eliminar NO EXISTE';
-		RETURN FALSE;
-	END IF;
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT
-SET search_path FROM CURRENT;
-
-﻿-- Getters --
-CREATE OR REPLACE FUNCTION management.products_get_code_id (
-	IN p_products	management.products
-) RETURNS integer AS 
+-----------------------------
+-- CONSTRUCTOR & DESTRUCTOR
+-----------------------------
+CREATE OR REPLACE FUNCTION product (
+	IN p_name                     text,
+	IN p_description              text,
+	IN p_stock                    integer
+) RETURNS product AS
 $$
-	SELECT p_products.code_id;
-$$ LANGUAGE sql STABLE STRICT
-SET search_path FROM CURRENT; 
+	INSERT INTO product(name, descrition, stock)
+		VALUES(p_name, p_description, p_stock)
+	RETURNING *;
+$$ LANGUAGE sql VOLATILE STRICT;
 
-CREATE OR REPLACE FUNCTION management.products_get_name (
-	IN p_products	management.products
+
+CREATE OR REPLACE FUNCTION product_destroy (
+	IN p_product                  product
+) RETURNS void AS
+$$
+	DELETE FROM product p WHERE p = p_product;
+$$ LANGUAGE sql VOLATILE STRICT;
+
+
+-----------------------------
+-- SEARCH & IDENTIFY
+-----------------------------
+CREATE OR REPLACE FUNCTION product_identify_by_id (
+	IN p_id                       integer
+) RETURNS product AS
+$$
+	SELECT p FROM product p WHERE id = p_id;
+$$ LANGUAGE sql STABLE STRICT;
+
+
+CREATE OR REPLACE FUNCTION product_search_by_name (
+	IN p_name                     text DEFAULT '%'
+) RETURNS SETOF product AS
+$$
+	SELECT * FROM product WHERE name ilike p_name || '%' ORDER BY name;
+$$ LANGUAGE sql STABLE STRICT;
+
+
+-----------------------------
+-- GETTERS & SETTERS
+-----------------------------
+CREATE OR REPLACE FUNCTION product_get_id (
+	IN p_product                  product
+) RETURNS integer AS
+$$
+	SELECT id(p_product);
+$$ LANGUAGE sql STABLE STRICT;
+
+
+CREATE OR REPLACE FUNCTION product_get_name (
+	IN p_product                  product
 ) RETURNS text AS 
 $$
-	SELECT p_products.name;
-$$ LANGUAGE sql STABLE STRICT
-SET search_path FROM CURRENT; 
+	SELECT name(p_product);
+$$ LANGUAGE sql STABLE STRICT;
 
-CREATE OR REPLACE FUNCTION management.products_get_description (
-	IN p_products	management.products
+
+CREATE OR REPLACE FUNCTION product_get_description (
+	IN p_product                  product
 ) RETURNS text AS 
 $$
-	SELECT p_products.description;
-$$ LANGUAGE sql STABLE STRICT
-SET search_path FROM CURRENT; 
+	SELECT descrition(p_product);
+$$ LANGUAGE sql STABLE STRICT;
 
-CREATE OR REPLACE FUNCTION management.products_get_stock (
-	IN p_products	management.products
+
+CREATE OR REPLACE FUNCTION product_get_stock (
+	IN p_product                  product
 ) RETURNS integer AS 
 $$
-	SELECT p_products.stock;
-$$ LANGUAGE sql STABLE STRICT
-SET search_path FROM CURRENT; 
+	SELECT stock(p_product);
+$$ LANGUAGE sql STABLE STRICT;
 
--- Setters --
-CREATE OR REPLACE FUNCTION management.products_set_code_id (
-	IN p_code             integer,
-	IN p_name             text
+
+CREATE OR REPLACE FUNCTION product_set_name (
+	IN p_product                  product,
+	IN p_name                     text
+) RETURNS void AS
+$$
+	UPDATE product p SET name = p_name WHERE p = p_product;
+$$ LANGUAGE sql VOLATILE STRICT;
+
+
+CREATE OR REPLACE FUNCTION product_set_description (
+	IN p_product                  product,
+	IN p_description              text
+) RETURNS void AS
+$$
+	UPDATE product p SET descrition = p_description WHERE p = p_product;
+$$ LANGUAGE sql VOLATILE STRICT;
+
+
+CREATE OR REPLACE FUNCTION product_set_stock (
+	IN p_product                  product,
+	IN p_stock                    integer
+) RETURNS void AS
+$$
+	UPDATE product p SET stock = p_stock WHERE p = p_product;
+$$ LANGUAGE sql VOLATILE STRICT;
+
+
+CREATE OR REPLACE FUNCTION product_add_to_stock (
+	IN p_product                  product,
+	IN p_quantity                 integer
+) RETURNS void AS $$
+BEGIN 
+	IF p_quantity <= 0
+	THEN 
+		RAISE EXCEPTION 'product_add_to_stock ERROR: quantity is <= 0';
+	END IF;
+	
+	UPDATE product p SET p.stock = p.stock + p_quantity
+		WHERE p = p_product;
+END;
+$$ LANGUAGE plpgsql VOLATILE STRICT;
+
+
+CREATE OR REPLACE FUNCTION product_remove_from_stock (
+	IN p_product                  product,
+	IN p_quantity                 integer
+) RETURNS void AS $$
+BEGIN 
+	IF p_quantity <= 0
+	THEN 
+		RAISE EXCEPTION 'product_remove_to_stock ERROR: quantity is <= 0';
+	END IF;
+	
+	IF stock(p_product) < p_quantity
+	THEN 
+		RAISE EXCEPTION 'product_remove_to_stock ERROR: stock < quantity';
+	END IF;
+	
+	UPDATE product p SET p.stock = p.stock - p_quantity
+		WHERE p = p_product;
+END;
+$$ LANGUAGE plpgsql VOLATILE STRICT;
+
+CREATE OR REPLACE FUNCTION webapi_product_validate (
+	IN p_product                  jsonb
 ) RETURNS boolean AS $$
 BEGIN 
-	IF EXISTS (SELECT 1 FROM management.products WHERE name = p_name)
-	THEN 
-		UPDATE management.products SET code_id = p_code
-			WHERE name = p_name;
-		
-		RETURN TRUE;
-	ELSE 
-		RAISE WARNING 'El id ingresado NO EXISTE';
+	IF NOT p_product ? 'id'
+		OR NOT p_product ? 'name'
+		OR NOT p_product ? 'description'
+		OR NOT p_product ? 'stock'
+	THEN
 		RETURN FALSE;
-	END IF;
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_set_name (
-	IN p_code            integer,
-	IN p_name             text
-) RETURNS boolean AS $$
-BEGIN 
-	IF EXISTS (SELECT 1 FROM management.products WHERE code_id  = p_code)
-	THEN 
-		UPDATE management.products SET name = p_name
-			WHERE code_id = p_code;
-		
-		RETURN TRUE;
 	ELSE 
-		RAISE WARNING 'El id ingresado NO EXISTE';
-		RETURN FALSE;
-	END IF;
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_set_description (
-	IN p_code             integer,
-	IN p_description             text
-) RETURNS boolean AS $$
-BEGIN 
-	IF EXISTS (SELECT 1 FROM management.products WHERE code_id  = p_code)
-	THEN 
-		UPDATE management.products SET description = p_description
-			WHERE code_id = p_code;
-		
 		RETURN TRUE;
-	ELSE 
-		RAISE WARNING 'El id ingresado NO EXISTE';
-		RETURN FALSE;
 	END IF;
 END;
-$$ LANGUAGE plpgsql VOLATILE STRICT
-SET search_path FROM CURRENT;
+$$ LANGUAGE plpgsql IMMUTABLE STRICT;
 
-CREATE OR REPLACE FUNCTION management.products_set_stock (
-	IN p_code              integer,
-	IN p_stock           integer
-) RETURNS boolean AS $$
+
+CREATE OR REPLACE FUNCTION webapi_product_create (
+	IN p_product                  jsonb
+) RETURNS jsonb AS $$
 BEGIN 
-	IF EXISTS (SELECT 1 FROM management.products WHERE code_id  = p_code)
+	IF NOT webapi_product_validate(p_product)
 	THEN 
-		UPDATE management.products SET stock = p_stock
-			WHERE code_id = p_code;
-		
-		RETURN TRUE;
-	ELSE 
-		RAISE WARNING 'El id ingresado NO EXISTE';
-		RETURN FALSE;
-	END IF;
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT
-SET search_path FROM CURRENT;
-
-﻿-- Identificadores --
-CREATE OR REPLACE FUNCTION management.products_identify_by_code_id (
-	IN p_code             integer
-) RETURNS management.products AS 
-$$
-	SELECT * FROM management.products WHERE code_id = p_code;
-$$ LANGUAGE sql STRICT STABLE
-SET search_path FROM CURRENT;
-
-/*
-CREATE OR REPLACE FUNCTION management.products_identify_by_name (
-	IN p_name            text
-) RETURNS management.products AS 
-$$
-	SELECT * FROM management.products WHERE name = p_name;
-$$ LANGUAGE sql STRICT STABLE
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_identify_by_description (
-	IN p_description            text
-) RETURNS management.products AS 
-$$
-	SELECT * FROM management.products WHERE description = p_description;
-$$ LANGUAGE sql STRICT STABLE
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_identify_by_stock (
-	IN p_stock            integer
-) RETURNS management.products AS 
-$$
-	SELECT * FROM management.products WHERE stock = p_stock;
-$$ LANGUAGE sql STRICT STABLE
-SET search_path FROM CURRENT;
-*/
-
--- Bùsquedas --
-CREATE OR REPLACE FUNCTION management.products_lookup_by_code_id (
-	IN p_code             integer
-) RETURNS SETOF management.products AS 
-$$
-	SELECT * FROM management.products WHERE code_id  = p_code;
-$$ LANGUAGE sql STRICT STABLE
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_lookup_by_name (
-	IN p_name            text
-) RETURNS SETOF management.products AS 
-$$
-	SELECT * FROM management.products WHERE name = p_name;
-$$ LANGUAGE sql STRICT STABLE
-SET search_path FROM CURRENT;
-
-/*
-CREATE OR REPLACE FUNCTION management.products_lookup_by_description (
-	IN p_description            text
-) RETURNS SETOF management.products AS 
-$$
-	SELECT * FROM management.products WHERE description = p_description;
-$$ LANGUAGE sql STRICT STABLE
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_lookup_by_stock (
-	IN p_stock            integer
-) RETURNS SETOF management.products AS 
-$$
-	SELECT * FROM management.products WHERE stock = p_stock;
-$$ LANGUAGE sql STRICT STABLE
-SET search_path FROM CURRENT;
-*/
--- Vista completa --
-CREATE OR REPLACE VIEW management.vw_select_all AS
-	SELECT * FROM management.products; 
-
-	
-﻿-- Conector --
-CREATE OR REPLACE FUNCTION management.products_webapi_constructor (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products  ? 'code'
-		OR NOT p_products ? 'name'
-		OR NOT p_products ? 'description'
-		OR NOT p_products ? 'stock'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_constructor EXCEPTION: malformed JSON object';
+		RAISE WARNING 'webapi_product_create ERROR: malformed JSON object';
 	END IF;
 	
-	PERFORM management.products_constructor(
-        p_products ->> 'code', 
-        p_products ->> 'name', 
-        p_products ->> 'description', 
-        p_products ->> 'stock'
-        );
+	RETURN row_to_json(p)::jsonb FROM product (
+		p_product ->> 'name',
+		p_product ->> 'description',
+		(p_product ->> 'stock')::integer
+	) p;
 END;
 $$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_delete_row_by_code_id  (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products  ? 'code'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_delete_row_by_code_id EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_delete_row_by_code_id (
-        p_products ->> 'code'
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-
-CREATE OR REPLACE FUNCTION management.products_webapi_get_code_id  (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products  ? 'code'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_get_code_id EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_get_code_id(
-        p_products ->> 'code'
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_get_name (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products ? 'name'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_get_name EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_get_name(
-        p_products ->> 'name'
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_get_description (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products ? 'description'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_get_description EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_get_description(
-        p_products ->> 'description'
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_get_stock (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products ? 'stock'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_get_stock EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_get_stock(
-        p_products ->> 'stock'
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_set_code_id (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products  ? 'code'
-		OR NOT p_products ? 'name'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_set_code_id EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_set_code_id (
-        p_products ->> 'code', 
-        p_products ->> 'name' 
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_set_name (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products  ? 'code'
-		OR NOT p_products ? 'name'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_set_name EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_set_name (
-        p_products ->> 'code', 
-        p_products ->> 'name' 
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_set_description (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products  ? 'code'
-		OR NOT p_products ? 'description'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_set_description EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_set_description (
-        p_products ->> 'code', 
-        p_products ->> 'description' 
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_set_stock (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products  ? 'code'
-		OR NOT p_products ? 'stock'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_set_stock EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_set_stock (
-        p_products ->> 'code', 
-        p_products ->> 'stock' 
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_identify_by_code_id (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products  ? 'code'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_identify_by_code_id EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_identify_by_code_id (
-        p_products ->> 'code'  
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-/*
-CREATE OR REPLACE FUNCTION management.products_webapi_identify_by_name (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products ? 'name'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_identify_by_name EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_identify_by_name (
-        p_products ->> 'name' 
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_identify_by_description (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products ? 'description'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_identify_by_description EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_identify_by_description (
-        p_products ->> 'description' 
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_identify_by_stock (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products ? 'stock'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_identify_by_stock EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_identify_by_stock (
-        p_products ->> 'stock' 
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-*/
-
-CREATE OR REPLACE FUNCTION management.products_webapi_lookup_by_code_id (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products  ? 'code'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_lookup_by_code_id EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_lookup_by_code_id (
-        p_products ->> 'code'  
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_lookup_by_name (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products ? 'name'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_lookup_by_name EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_lookup_by_name (
-        p_products ->> 'name' 
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-/*
-CREATE OR REPLACE FUNCTION management.products_webapi_lookup_by_description (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products ? 'description'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_lookup_by_description EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_lookup_by_description (
-        p_products ->> 'description' 
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-
-CREATE OR REPLACE FUNCTION management.products_webapi_lookup_by_stock (
-	IN p_products                    jsonb
-) RETURNS void AS $$
-BEGIN 
-	IF NOT p_products ? 'stock'
-	THEN 
-		RAISE EXCEPTION 'management.products_webapi_management.products_lookup_by_stock EXCEPTION: malformed JSON object';
-	END IF;
-	
-	PERFORM management.products_lookup_by_stock (
-        p_products ->> 'stock' 
-        );
-END;
-$$ LANGUAGE plpgsql VOLATILE STRICT;
-SET search_path FROM CURRENT;
-*/
