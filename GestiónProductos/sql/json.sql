@@ -6,3 +6,10 @@ SELECT webapi_product_create('{"name" : "chocolate","description" : "barra","sto
 
 SELECT webapi_product_create('{"name" : "carne","description" : "20 Kg","stock" : 250}');
 
+SELECT webapi_product_create (
+'{
+    "name":"carne",
+    "description":"20 Kg",
+    "stock":"25"
+   }'
+  );
