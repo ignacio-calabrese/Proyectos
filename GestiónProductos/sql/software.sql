@@ -148,7 +148,6 @@ $$ LANGUAGE plpgsql VOLATILE STRICT;
 ﻿--------------------------------------------------------------
 ---Validar y crear
 -------------------------------------------------------------
-
 CREATE OR REPLACE FUNCTION webapi_product_validate (
 	IN p_product                  jsonb
 ) RETURNS boolean AS $$
@@ -191,8 +190,8 @@ CREATE OR REPLACE FUNCTION webapi_product_validate_destroy (
 	IN p_product                  jsonb
 ) RETURNS boolean AS $$
 BEGIN 
-	IF NOT p_product ? 'id'
-		OR NOT p_product ? 'name'
+	--IF NOT p_product ? 'id'
+		IF NOT p_product ? 'name'
 		OR NOT p_product ? 'description'
 		OR NOT p_product ? 'stock'
 	THEN
@@ -213,7 +212,7 @@ BEGIN
 	END IF;
 	
 	PERFORM product_destroy (
-		(p_product ->> 'id')::integer,
+		--(p_product ->> 'id')::integer,
 		p_product ->> 'name',
 		p_product ->> 'description',
 		(p_product ->> 'stock')::integer

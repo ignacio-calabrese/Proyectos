@@ -1,0 +1,777 @@
+icalabrese@virtual-desktop:~/Proyectos/GestiónProductos/productos/target$ cd /var/lib/tomcat8
+icalabrese@virtual-desktop:/var/lib/tomcat8$ ls -l
+total 12
+lrwxrwxrwx 1 root    root      12 sep  3  2017 conf -> /etc/tomcat8
+drwxr-xr-x 2 tomcat8 tomcat8 4096 sep  3  2017 lib
+lrwxrwxrwx 1 root    root      17 sep  3  2017 logs -> ../../log/tomcat8
+drwxr-xr-x 2 root    root    4096 jun  9 10:27 policy
+drwxrwxr-x 3 tomcat8 tomcat8 4096 may 19 13:10 webapps
+lrwxrwxrwx 1 root    root      19 sep  3  2017 work -> ../../cache/tomcat8
+icalabrese@virtual-desktop:/var/lib/tomcat8$ sudo su - 
+[sudo] password for icalabrese: 
+icalabrese is not in the sudoers file.  This incident will be reported.
+icalabrese@virtual-desktop:/var/lib/tomcat8$ su
+Contraseña: 
+root@virtual-desktop:/var/lib/tomcat8# visudo
++root@virtual-desktop:/var/lib/tomcat8# exit
+icalabrese@virtual-desktop:/var/lib/tomcat8$ ls
+conf  lib  logs  policy  webapps  work
+icalabrese@virtual-desktop:/var/lib/tomcat8$ cd 
+icalabrese@virtual-desktop:~$ ls -l
+total 836
+drwxr-xr-x 6 icalabrese icalabrese   4096 ene 27 09:44 111milS
+drwxr-xr-x 4 icalabrese icalabrese   4096 feb  3 09:35 aplicacion_bancaria
+-rw-r--r-- 1 icalabrese icalabrese   8806 may 19 12:42 conectors.sql
+drwxr-xr-x 2 icalabrese icalabrese   4096 jun  2 11:43 examenes
+drwxr-xr-x 5 icalabrese icalabrese   4096 mar 10 15:18 html
+-rw-r--r-- 1 icalabrese icalabrese  48871 may 12 13:10 modificaciones.txt
+-rw-r--r-- 1 icalabrese icalabrese  34895 may 19 13:52 pgadmin.log
+-rw-r--r-- 1 icalabrese icalabrese 713037 nov  3  2017 postgresql-42.1.4.jar
+-rw-r--r-- 1 icalabrese icalabrese    834 ene 27 16:51 primer_pagina_web.html
+drwxr-xr-x 5 icalabrese icalabrese   4096 may 19 10:29 Proyectos
+drwxr-xr-x 2 icalabrese icalabrese   4096 abr 14 13:53 soluciones
+drwxr-xr-x 2 icalabrese icalabrese   4096 may 19 10:19 sql
+drwxr-xr-x 7 icalabrese icalabrese   4096 nov 18  2017 src
+icalabrese@virtual-desktop:~$ cd Proyectos/GestiónProductos/productos/target/
+icalabrese@virtual-desktop:~/Proyectos/GestiónProductos/productos/target$ ls
+classes  generated-sources  maven-archiver  maven-status  productos  productos.war
+icalabrese@virtual-desktop:~/Proyectos/GestiónProductos/productos/target$ sudo cp productos.war /var/lib/tomcat8/webapps/
+[sudo] password for icalabrese: 
+icalabrese@virtual-desktop:~/Proyectos/GestiónProductos/productos/target$ ls /var/lib/tomcat8/webapps/
+productos  productos.war  ROOT
+icalabrese@virtual-desktop:~/Proyectos/GestiónProductos/productos/target$ ls /var/lib/tomcat8/^Cbapps/
+icalabrese@virtual-desktop:~/Proyectos/GestiónProductos/productos/target$ su -
+Contraseña: 
+root@virtual-desktop:~# cd /var/lib/tomcat8/
+root@virtual-desktop:/var/lib/tomcat8# ls -l
+total 12
+lrwxrwxrwx 1 root    root      12 sep  3  2017 conf -> /etc/tomcat8
+drwxr-xr-x 2 tomcat8 tomcat8 4096 sep  3  2017 lib
+lrwxrwxrwx 1 root    root      17 sep  3  2017 logs -> ../../log/tomcat8
+drwxr-xr-x 2 root    root    4096 jun  9 10:27 policy
+drwxrwxr-x 4 tomcat8 tomcat8 4096 jun  9 10:56 webapps
+lrwxrwxrwx 1 root    root      19 sep  3  2017 work -> ../../cache/tomcat8
+root@virtual-desktop:/var/lib/tomcat8# cd webapps/
+root@virtual-desktop:/var/lib/tomcat8/webapps# cd productos/
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos# ls -l
+total 24
+drwxr-x--- 2 tomcat8 tomcat8 4096 jun  9 10:56 css
+-rw-r----- 1 tomcat8 tomcat8 3902 may 19 10:24 index.jsp
+drwxr-x--- 2 tomcat8 tomcat8 4096 jun  9 10:56 js
+drwxr-x--- 3 tomcat8 tomcat8 4096 jun  9 10:56 META-INF
+-rw-r----- 1 tomcat8 tomcat8 1282 may 19 10:24 table.jsp
+drwxr-x--- 4 tomcat8 tomcat8 4096 jun  9 10:56 WEB-INF
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos# cd ..
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 880
+drwxr-x--- 6 tomcat8 tomcat8   4096 jun  9 10:56 productos
+-rw-r--r-- 1 root    root    889872 jun  9 10:56 productos.war
+drwxr-xr-x 3 root    root      4096 abr 14 13:52 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# mkdir pepe
+root@virtual-desktop:/var/lib/tomcat8/webapps# cd pepe
+root@virtual-desktop:/var/lib/tomcat8/webapps/pepe# vim index.html
+root@virtual-desktop:/var/lib/tomcat8/webapps/pepe# cd ..
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 884
+drwxr-xr-x 2 root    root      4096 jun  9 11:00 pepe
+drwxr-x--- 6 tomcat8 tomcat8   4096 jun  9 10:56 productos
+-rw-r--r-- 1 root    root    889872 jun  9 10:56 productos.war
+drwxr-xr-x 3 root    root      4096 abr 14 13:52 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# chown -R tomcat8:tomcat8 pepe/
+root@virtual-desktop:/var/lib/tomcat8/webapps# cd ..
+root@virtual-desktop:/var/lib/tomcat8# ls -l
+total 12
+lrwxrwxrwx 1 root    root      12 sep  3  2017 conf -> /etc/tomcat8
+drwxr-xr-x 2 tomcat8 tomcat8 4096 sep  3  2017 lib
+lrwxrwxrwx 1 root    root      17 sep  3  2017 logs -> ../../log/tomcat8
+drwxr-xr-x 2 root    root    4096 jun  9 10:27 policy
+drwxrwxr-x 5 tomcat8 tomcat8 4096 jun  9 11:00 webapps
+lrwxrwxrwx 1 root    root      19 sep  3  2017 work -> ../../cache/tomcat8
+root@virtual-desktop:/var/lib/tomcat8# cd webapps/
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 884
+drwxr-xr-x 2 tomcat8 tomcat8   4096 jun  9 11:00 pepe
+drwxr-x--- 6 tomcat8 tomcat8   4096 jun  9 10:56 productos
+-rw-r--r-- 1 root    root    889872 jun  9 10:56 productos.war
+drwxr-xr-x 3 root    root      4096 abr 14 13:52 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# cd productos/
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos# ls -l
+total 24
+drwxr-x--- 2 tomcat8 tomcat8 4096 jun  9 10:56 css
+-rw-r----- 1 tomcat8 tomcat8 3902 may 19 10:24 index.jsp
+drwxr-x--- 2 tomcat8 tomcat8 4096 jun  9 10:56 js
+drwxr-x--- 3 tomcat8 tomcat8 4096 jun  9 10:56 META-INF
+-rw-r----- 1 tomcat8 tomcat8 1282 may 19 10:24 table.jsp
+drwxr-x--- 4 tomcat8 tomcat8 4096 jun  9 10:56 WEB-INF
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos# vim index.html
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos# chown tomcat8:tomcat8 index.html 
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos# ls -l
+total 28
+drwxr-x--- 2 tomcat8 tomcat8 4096 jun  9 10:56 css
+-rw-r--r-- 1 tomcat8 tomcat8    6 jun  9 11:01 index.html
+-rw-r----- 1 tomcat8 tomcat8 3902 may 19 10:24 index.jsp
+drwxr-x--- 2 tomcat8 tomcat8 4096 jun  9 10:56 js
+drwxr-x--- 3 tomcat8 tomcat8 4096 jun  9 10:56 META-INF
+-rw-r----- 1 tomcat8 tomcat8 1282 may 19 10:24 table.jsp
+drwxr-x--- 4 tomcat8 tomcat8 4096 jun  9 10:56 WEB-INF
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos# cd ..
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 884
+drwxr-xr-x 2 tomcat8 tomcat8   4096 jun  9 11:00 pepe
+drwxr-x--- 6 tomcat8 tomcat8   4096 jun  9 11:01 productos
+-rw-r--r-- 1 root    root    889872 jun  9 10:56 productos.war
+drwxr-xr-x 3 root    root      4096 abr 14 13:52 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# chmod -R 777 productos*
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 884
+drwxr-xr-x 2 tomcat8 tomcat8   4096 jun  9 11:00 pepe
+drwxrwxrwx 6 tomcat8 tomcat8   4096 jun  9 11:01 productos
+-rwxrwxrwx 1 root    root    889872 jun  9 10:56 productos.war
+drwxr-xr-x 3 root    root      4096 abr 14 13:52 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 884
+drwxr-xr-x 2 tomcat8 tomcat8   4096 jun  9 11:00 pepe
+drwxrwxrwx 6 tomcat8 tomcat8   4096 jun  9 11:01 productos
+-rwxrwxrwx 1 root    root    889872 jun  9 10:56 productos.war
+drwxr-xr-x 3 root    root      4096 abr 14 13:52 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# 
+
+
+
+
+
+
+PROCESO CORRECTO
+
+icalabrese@virtual-desktop:~$ sudo su -
+[sudo] password for icalabrese: 
+root@virtual-desktop:~# apt-get remove tomcat8
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias       
+Leyendo la información de estado... Hecho
+Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
+  authbind libtcnative-1
+Utilice «apt autoremove» para eliminarlos.
+Los siguientes paquetes se ELIMINARÁN:
+  tomcat8
+0 actualizados, 0 nuevos se instalarán, 1 para eliminar y 133 no actualizados.
+Se liberarán 319 kB después de esta operación.
+¿Desea continuar? [S/n] s
+(Leyendo la base de datos ... 157670 ficheros o directorios instalados actualmente.)
+Desinstalando tomcat8 (8.5.14-1+deb9u2) ...
+root@virtual-desktop:~# apt purge tomcat8
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias       
+Leyendo la información de estado... Hecho
+Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
+  authbind libtcnative-1
+Utilice «apt autoremove» para eliminarlos.
+Los siguientes paquetes se ELIMINARÁN:
+  tomcat8*
+0 actualizados, 0 nuevos se instalarán, 1 para eliminar y 133 no actualizados.
+Se utilizarán 0 B de espacio de disco adicional después de esta operación.
+¿Desea continuar? [S/n] s
+(Leyendo la base de datos ... 157652 ficheros o directorios instalados actualmente.)
+Purgando ficheros de configuración de tomcat8 (8.5.14-1+deb9u2) ...
+dpkg: atención: al desinstalar tomcat8, el directorio «/var/lib/tomcat8/webapps» no está vacío, por lo que no se borra
+Procesando disparadores para systemd (232-25+deb9u1) ...
+root@virtual-desktop:~# apt purge tomcat8*
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias       
+Leyendo la información de estado... Hecho
+Nota, seleccionando «tomcat8-examples» para el global «tomcat8*»
+Nota, seleccionando «tomcat8-admin» para el global «tomcat8*»
+Nota, seleccionando «tomcat8-common» para el global «tomcat8*»
+Nota, seleccionando «tomcat8» para el global «tomcat8*»
+Nota, seleccionando «tomcat8-docs» para el global «tomcat8*»
+Nota, seleccionando «tomcat8-user» para el global «tomcat8*»
+El paquete «tomcat8» no está instalado, no se eliminará
+El paquete «tomcat8-user» no está instalado, no se eliminará
+Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
+  authbind libcommons-dbcp-java libcommons-pool-java libecj-java
+  libtaglibs-standard-impl-java libtaglibs-standard-spec-java libtcnative-1
+  libtomcat8-java
+Utilice «apt autoremove» para eliminarlos.
+Los siguientes paquetes se ELIMINARÁN:
+  tomcat8-admin* tomcat8-common* tomcat8-docs* tomcat8-examples*
+0 actualizados, 0 nuevos se instalarán, 4 para eliminar y 133 no actualizados.
+Se liberarán 4.760 kB después de esta operación.
+¿Desea continuar? [S/n] s
+(Leyendo la base de datos ... 157634 ficheros o directorios instalados actualmente.)
+Desinstalando tomcat8-admin (8.5.14-1+deb9u2) ...
+Desinstalando tomcat8-examples (8.5.14-1+deb9u2) ...
+Desinstalando tomcat8-docs (8.5.14-1+deb9u2) ...
+Desinstalando tomcat8-common (8.5.14-1+deb9u2) ...
+(Leyendo la base de datos ... 156915 ficheros o directorios instalados actualmente.)
+Purgando ficheros de configuración de tomcat8-admin (8.5.14-1+deb9u2) ...
+Purgando ficheros de configuración de tomcat8-examples (8.5.14-1+deb9u2) ...
+Purgando ficheros de configuración de tomcat8-docs (8.5.14-1+deb9u2) ...
+root@virtual-desktop:~# cd /var/lib/
+root@virtual-desktop:/var/lib# ls -l
+total 164
+drwxr-xr-x 2 root          root          4096 ene 22  2017 alsa
+drwxr-xr-x 5 root          root          4096 mar 10 11:49 apache2
+drwxr-xr-x 5 root          root          4096 jun  9 11:13 apt
+drwxr-xr-x 2 root          root          4096 oct 11  2017 aspell
+drwxr-xr-x 2 avahi-autoipd avahi-autoipd 4096 oct 11  2017 avahi-autoipd
+drwxr-xr-x 2 root          root          4096 oct 11  2017 dbus
+drwxr-xr-x 2 root          root          4096 ene  9  2017 dhcp
+drwxr-xr-x 6 root          root          4096 oct 11  2017 dictionaries-common
+drwxr-xr-x 7 root          root          4096 jun  9 11:13 dpkg
+drwxr-xr-x 3 root          root          4096 oct 11  2017 emacsen-common
+drwxr-xr-x 5 root          root          4096 oct 11  2017 gconf
+drwxr-xr-x 4 root          root          4096 oct 11  2017 ghostscript
+drwxr-xr-x 2 root          root          4096 sep 25  2017 git
+drwxr-xr-x 2 root          root          4096 feb 24 10:01 initramfs-tools
+drwxr-xr-x 2 root          root          4096 oct 11  2017 ispell
+drwxr-x--- 4 lightdm       lightdm       4096 oct 11  2017 lightdm
+drwxr-xr-x 2 root          root          4096 jun  9 10:32 logrotate
+drwxr-xr-x 2 root          root          4096 oct 11  2017 man-db
+drwxr-xr-x 2 root          root          4096 jul 13  2017 misc
+drwxr-xr-x 2 root          root          4096 jun  9 10:27 NetworkManager
+drwxr-xr-x 2 root          root          4096 jul 13  2017 os-prober
+drwxr-xr-x 2 root          root          4096 oct 11  2017 PackageKit
+drwxr-xr-x 2 root          root          4096 oct 11  2017 pam
+drwx------ 3 root          root          4096 oct 11  2017 polkit-1
+drwxr-xr-x 3 postgres      postgres      4096 oct 23  2017 postgresql
+drwxr-xr-x 2 root          root          4096 oct 11  2017 python
+drwxr-xr-x 2 root          root          4096 oct 11  2017 sgml-base
+drwx--x--x 4 root          root          4096 oct 11  2017 sudo
+drwxr-xr-x 2 root          root          4096 mar  9  2017 synaptic
+drwxr-xr-x 6 root          root          4096 oct 11  2017 systemd
+drwxr-xr-x 3 root          root          4096 jun  9 11:09 tomcat8
+drwxr-xr-x 3 root          root          4096 jun  9 11:11 ucf
+drwx------ 2 root          root          4096 oct 11  2017 udisks2
+drwxr-xr-x 2 root          root          4096 oct 11  2017 upower
+drwxr-xr-x 2 root          root          4096 ene 23  2017 usb_modeswitch
+drwxr-xr-x 2 root          root          4096 oct 11  2017 usbutils
+drwxr-xr-x 2 root          root          4096 feb 24 09:56 VBoxGuestAdditions
+drwxr-xr-x 3 root          root          4096 oct 11  2017 vim
+drwxr-xr-x 2 root          root          4096 oct 11  2017 xfonts
+drwxr-xr-x 2 root          root          4096 jun  9 10:43 xkb
+drwxr-xr-x 2 root          root          4096 oct 11  2017 xml-core
+root@virtual-desktop:/var/lib# rm -rf tomcat8/
+root@virtual-desktop:/var/lib# cd /etc
+root@virtual-desktop:/etc# apt install tomcat8
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias       
+Leyendo la información de estado... Hecho
+Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
+  libtaglibs-standard-impl-java libtaglibs-standard-spec-java
+Utilice «apt autoremove» para eliminarlos.
+Se instalarán los siguientes paquetes adicionales:
+  tomcat8-common
+Paquetes sugeridos:
+  tomcat8-admin tomcat8-docs tomcat8-examples tomcat8-user
+Se instalarán los siguientes paquetes NUEVOS:
+  tomcat8 tomcat8-common
+0 actualizados, 2 nuevos se instalarán, 0 para eliminar y 133 no actualizados.
+Se necesita descargar 0 B/115 kB de archivos.
+Se utilizarán 485 kB de espacio de disco adicional después de esta operación.
+¿Desea continuar? [S/n] s
+Preconfigurando paquetes ...
+Seleccionando el paquete tomcat8-common previamente no seleccionado.
+(Leyendo la base de datos ... 156906 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../tomcat8-common_8.5.14-1+deb9u2_all.deb ...
+Desempaquetando tomcat8-common (8.5.14-1+deb9u2) ...
+Seleccionando el paquete tomcat8 previamente no seleccionado.
+Preparando para desempaquetar .../tomcat8_8.5.14-1+deb9u2_all.deb ...
+Desempaquetando tomcat8 (8.5.14-1+deb9u2) ...
+Configurando tomcat8-common (8.5.14-1+deb9u2) ...
+Procesando disparadores para systemd (232-25+deb9u1) ...
+Configurando tomcat8 (8.5.14-1+deb9u2) ...
+
+Creating config file /etc/default/tomcat8 with new version
+
+Creating config file /etc/logrotate.d/tomcat8 with new version
+Procesando disparadores para systemd (232-25+deb9u1) ...
+root@virtual-desktop:/etc# ls -l
+total 980
+-rw-r--r--  1 root root    2981 oct 11  2017 adduser.conf
+-rw-r--r--  1 root root      44 oct 11  2017 adjtime
+drwxr-xr-x  2 root root   20480 feb  3 10:02 alternatives
+-rw-r--r--  1 root root     401 may 29  2017 anacrontab
+drwxr-xr-x  8 root root    4096 mar 10 11:49 apache2
+drwxr-xr-x  3 root root    4096 oct 11  2017 apm
+drwxr-xr-x  4 root root    4096 oct 11  2017 apparmor.d
+drwxr-xr-x  6 root root    4096 abr 14 13:42 apt
+drwxr-xr-x  5 root root    4096 jun  9 11:13 authbind
+drwxr-xr-x  3 root root    4096 oct 11  2017 avahi
+-rw-r--r--  1 root root    2037 oct 11  2017 bash.bashrc
+-rw-r--r--  1 root root      45 mar 22  2014 bash_completion
+drwxr-xr-x  2 root root    4096 feb  3 10:02 bash_completion.d
+-rw-r--r--  1 root root     367 abr  9  2017 bindresvport.blacklist
+drwxr-xr-x  2 root root    4096 jul  5  2017 binfmt.d
+drwxr-xr-x  2 root root    4096 oct 11  2017 bluetooth
+drwxr-xr-x  3 root root    4096 oct 11  2017 ca-certificates
+-rw-r--r--  1 root root    7431 oct 11  2017 ca-certificates.conf
+drwxr-xr-x  2 root root    4096 oct 11  2017 calendar
+drwxr-s---  2 root dip     4096 oct 11  2017 chatscripts
+drwxr-xr-x  2 root root    4096 oct 11  2017 console-setup
+drwxr-xr-x  2 root root    4096 oct 11  2017 cron.d
+drwxr-xr-x  2 root root    4096 jun  9 11:13 cron.daily
+drwxr-xr-x  2 root root    4096 oct 11  2017 cron.hourly
+drwxr-xr-x  2 root root    4096 oct 11  2017 cron.monthly
+-rw-r--r--  1 root root     722 may  3  2015 crontab
+drwxr-xr-x  2 root root    4096 oct 11  2017 cron.weekly
+drwxr-xr-x  2 root root    4096 oct 11  2017 cupshelpers
+drwxr-xr-x  4 root root    4096 feb  3 09:59 dbus-1
+-rw-r--r--  1 root root    2969 may 21  2017 debconf.conf
+-rw-r--r--  1 root root       4 nov 19  2017 debian_version
+drwxr-xr-x  2 root root    4096 jun  9 11:13 default
+-rw-r--r--  1 root root     604 jun 26  2016 deluser.conf
+drwxr-xr-x  2 root root    4096 feb 24 09:57 depmod.d
+drwxr-xr-x  4 root root    4096 oct 11  2017 dhcp
+drwxr-xr-x  2 root root    4096 oct 11  2017 dictionaries-common
+drwxr-xr-x  2 root root    4096 oct 11  2017 discover.conf.d
+-rw-r--r--  1 root root     346 nov 30  2016 discover-modprobe.conf
+drwxr-xr-x  4 root root    4096 oct 11  2017 dpkg
+-rw-r--r--  1 root root    4479 abr 25  2017 drirc
+drwxr-xr-x  3 root root    4096 oct 11  2017 emacs
+-rw-r--r--  1 root root      87 oct 11  2017 environment
+drwxr-xr-x  2 root root    4096 feb  3 09:59 firefox-esr
+drwxr-xr-x  4 root root    4096 oct 11  2017 fonts
+-rw-r--r--  1 root root     664 oct 11  2017 fstab
+-rw-r--r--  1 root root     280 jun 20  2014 fuse.conf
+-rw-r--r--  1 root root    2584 ago  1  2016 gai.conf
+drwxr-xr-x  5 root root    4096 oct 11  2017 gconf
+drwxr-xr-x  4 root root    4096 oct 11  2017 ghostscript
+drwxr-xr-x  3 root root    4096 oct 11  2017 gimp
+drwxr-xr-x  2 root root    4096 oct 11  2017 groff
+-rw-r--r--  1 root root    1052 abr 14 13:52 group
+-rw-------  1 root root    1037 feb  3 09:48 group-
+drwxr-xr-x  2 root root    4096 oct 11  2017 grub.d
+-rw-r-----  1 root shadow   884 abr 14 13:52 gshadow
+-rw-------  1 root root     872 feb  3 09:48 gshadow-
+drwxr-xr-x  3 root root    4096 oct 11  2017 gss
+drwxr-xr-x  2 root root    4096 oct 11  2017 gtk-2.0
+drwxr-xr-x  2 root root    4096 oct 11  2017 gtk-3.0
+-rw-r--r--  1 root root    6748 jul  9  2012 hddtemp.db
+-rw-r--r--  1 root root    4781 ene 24  2017 hdparm.conf
+-rw-r--r--  1 root root       9 ago  7  2006 host.conf
+-rw-r--r--  1 root root      16 oct 11  2017 hostname
+-rw-r--r--  1 root root     195 oct 11  2017 hosts
+-rw-r--r--  1 root root     411 oct 11  2017 hosts.allow
+-rw-r--r--  1 root root     711 oct 11  2017 hosts.deny
+drwxr-xr-x  2 root root    4096 oct 11  2017 icedtea-web
+drwxr-xr-x  3 root root    4096 oct 11  2017 ifplugd
+drwxr-xr-x  2 root root    4096 oct 11  2017 init
+drwxr-xr-x  2 root root    4096 jun  9 11:13 init.d
+drwxr-xr-x  5 root root    4096 oct 11  2017 initramfs-tools
+-rw-r--r--  1 root root    1748 may 15  2017 inputrc
+drwxr-xr-x  3 root root    4096 feb  3 09:57 iproute2
+-rw-r--r--  1 root root      26 jul 13  2017 issue
+-rw-r--r--  1 root root      19 jul 13  2017 issue.net
+drwxr-xr-x  3 root root    4096 oct 11  2017 java
+drwxr-xr-x  5 root root    4096 feb  3 09:58 java-8-openjdk
+drwxr-xr-x  6 root root    4096 feb 24 09:57 kernel
+-rw-r--r--  1 root root     144 oct 11  2017 kernel-img.conf
+drwxr-xr-x  2 root root    4096 oct 11  2017 ldap
+-rw-r--r--  1 root root   78762 jun  9 10:27 ld.so.cache
+-rw-r--r--  1 root root      34 abr  9  2017 ld.so.conf
+drwxr-xr-x  2 root root    4096 oct 11  2017 ld.so.conf.d
+-rw-r--r--  1 root root      26 oct 30  2016 libao.conf
+-rw-r--r--  1 root root     191 abr 12  2017 libaudit.conf
+drwxr-xr-x  2 root root    4096 oct 11  2017 libnl-3
+drwxr-xr-x  2 root root    4096 nov 11  2016 libpaper.d
+drwxr-xr-x  2 root root    4096 oct 11  2017 lightdm
+drwxr-xr-x  4 root root    4096 oct 11  2017 lighttpd
+-rw-r--r--  1 root root    1151 jun  3  2017 lintianrc
+-rw-r--r--  1 root root    2995 jun 15  2017 locale.alias
+-rw-r--r--  1 root root    9116 oct 11  2017 locale.gen
+lrwxrwxrwx  1 root root      50 feb 24 09:51 localtime -> /usr/share/zoneinfo/America/Argentina/Buenos_Aires
+drwxr-xr-x  3 root root    4096 oct 11  2017 logcheck
+-rw-r--r--  1 root root   10477 may 17  2017 login.defs
+-rw-r--r--  1 root root     599 may  5  2015 logrotate.conf
+drwxr-xr-x  2 root root    4096 jun  9 11:13 logrotate.d
+-r--r--r--  1 root root      33 oct 11  2017 machine-id
+-rw-r--r--  1 root root     111 sep  1  2017 magic
+-rw-r--r--  1 root root     111 sep  1  2017 magic.mime
+-rw-r--r--  1 root root   18879 feb 24 09:52 mailcap
+-rw-r--r--  1 root root     449 may  1  2016 mailcap.order
+-rw-r--r--  1 root root    5174 dic 13  2016 manpath.config
+drwxr-xr-x  3 root root    4096 feb  3 10:02 maven
+-rw-r--r--  1 root root   24301 may  1  2016 mime.types
+-rw-r--r--  1 root root     973 ene 31  2017 mke2fs.conf
+drwxr-xr-x  2 root root    4096 dic 25  2016 modprobe.d
+-rw-r--r--  1 root root     195 oct 11  2017 modules
+drwxr-xr-x  2 root root    4096 oct 11  2017 modules-load.d
+-rw-r--r--  1 root root     286 jul 13  2017 motd
+lrwxrwxrwx  1 root root      19 oct 11  2017 mtab -> ../proc/self/mounts
+-rw-r--r--  1 root root    8769 ene 10  2017 nanorc
+drwxr-xr-x  7 root root    4096 oct 11  2017 network
+drwxr-xr-x  8 root root    4096 oct 11  2017 NetworkManager
+-rw-r--r--  1 root root      60 oct 11  2017 networks
+drwxr-xr-x  2 root root    4096 oct 11  2017 newt
+-rw-r--r--  1 root root     529 oct 11  2017 nsswitch.conf
+drwxr-xr-x  2 root root    4096 oct 11  2017 opt
+lrwxrwxrwx  1 root root      21 nov 19  2017 os-release -> ../usr/lib/os-release
+drwxr-xr-x  2 root root    4096 oct 11  2017 PackageKit
+-rw-r--r--  1 root root     552 may 27  2017 pam.conf
+drwxr-xr-x  2 root root    4096 oct 11  2017 pam.d
+-rw-r--r--  1 root root       3 oct 11  2017 papersize
+-rw-r--r--  1 root root    2400 abr 14 13:52 passwd
+-rw-r--r--  1 root root    2400 abr 14 13:52 passwd-
+drwxr-xr-x  4 root root    4096 oct 11  2017 perl
+drwxr-xr-x  5 root root    4096 oct 11  2017 polkit-1
+drwxr-xr-x  3 root root    4096 oct 11  2017 postgresql
+drwxr-xr-x  3 root root    4096 feb  3 09:58 postgresql-common
+drwxr-xr-x  7 root dip     4096 oct 11  2017 ppp
+-rw-r--r--  1 root root     767 mar  4  2016 profile
+drwxr-xr-x  2 root root    4096 oct 11  2017 profile.d
+-rw-r--r--  1 root root    2932 dic 25  2016 protocols
+drwxr-xr-x  2 root root    4096 oct 11  2017 pulse
+drwxr-xr-x  2 root root    4096 oct 11  2017 python
+drwxr-xr-x  2 root root    4096 feb  3 09:58 python2.7
+drwxr-xr-x  2 root root    4096 oct 11  2017 python3
+drwxr-xr-x  2 root root    4096 oct 11  2017 python3.5
+drwxr-xr-x  2 root root    4096 jun  9 11:13 rc0.d
+drwxr-xr-x  2 root root    4096 jun  9 11:13 rc1.d
+drwxr-xr-x  2 root root    4096 jun  9 11:13 rc2.d
+drwxr-xr-x  2 root root    4096 jun  9 11:13 rc3.d
+drwxr-xr-x  2 root root    4096 jun  9 11:13 rc4.d
+drwxr-xr-x  2 root root    4096 jun  9 11:13 rc5.d
+drwxr-xr-x  2 root root    4096 jun  9 11:13 rc6.d
+drwxr-xr-x  2 root root    4096 oct 11  2017 rcS.d
+-rw-r--r--  1 root root    3173 may 29  2017 reportbug.conf
+drwxr-xr-x  3 root root    4096 oct 11  2017 resolvconf
+lrwxrwxrwx  1 root root      35 jun  9 10:27 resolv.conf -> /var/run/NetworkManager/resolv.conf
+-rwxr-xr-x  1 root root     268 oct 30  2016 rmt
+-rw-r--r--  1 root root     887 dic 25  2016 rpc
+-rw-r--r--  1 root root    1963 ene 18  2017 rsyslog.conf
+drwxr-xr-x  2 root root    4096 ene 18  2017 rsyslog.d
+drwxr-xr-x  3 root root    4096 oct 11  2017 sane.d
+-rw-r--r--  1 root root    4179 may 17  2017 securetty
+drwxr-xr-x  4 root root    4096 oct 11  2017 security
+drwxr-xr-x  2 root root    4096 oct 11  2017 selinux
+-rw-r--r--  1 root root   10368 abr  5  2017 sensors3.conf
+drwxr-xr-x  2 root root    4096 oct 11  2017 sensors.d
+-rw-r--r--  1 root root   19183 dic 25  2016 services
+drwxr-xr-x  3 root root    4096 oct 11  2017 sgml
+-rw-r-----  1 root shadow  1891 abr 14 13:52 shadow
+-rw-------  1 root root    1891 abr 14 13:52 shadow-
+-rw-r--r--  1 root root      73 oct 11  2017 shells
+drwxr-xr-x  3 root root    4096 oct 12  2017 skel
+drwxr-xr-x  4 root root    4096 oct 11  2017 speech-dispatcher
+drwxr-xr-x  2 root root    4096 feb  3 09:58 ssh
+drwxr-xr-x  4 root root    4096 feb  3 09:58 ssl
+-rw-r--r--  1 root root     771 jun  9  2012 staff-group-for-usr-local
+-rw-r--r--  1 root root     131 feb  3 09:48 subgid
+-rw-------  1 root root     108 nov 15  2017 subgid-
+-rw-r--r--  1 root root     131 feb  3 09:48 subuid
+-rw-------  1 root root     108 nov 15  2017 subuid-
+-r--r-----  1 root root     782 jun  9 10:55 sudoers
+drwxr-xr-x  2 root root    4096 oct 11  2017 sudoers.d
+-rw-r--r--  1 root root    2683 nov 22  2016 sysctl.conf
+drwxr-xr-x  2 root root    4096 feb  3 09:58 sysctl.d
+drwxr-xr-x  2 root root    4096 oct 11  2017 sysstat
+drwxr-xr-x  5 root root    4096 oct 11  2017 systemd
+drwxr-xr-x  2 root root    4096 oct 11  2017 terminfo
+-rw-r--r--  1 root root      31 feb 24 09:51 timezone
+drwxr-xr-x  2 root root    4096 jul  5  2017 tmpfiles.d
+drwxr-xr-x  4 root root    4096 jun  9 11:13 tomcat8
+-rw-r--r--  1 root root    1260 mar 16  2016 ucf.conf
+drwxr-xr-x  4 root root    4096 oct 11  2017 udev
+drwxr-xr-x  2 root root    4096 nov 25  2016 udisks2
+drwxr-xr-x  2 root root    4096 feb  3 09:55 update-motd.d
+drwxr-xr-x  2 root root    4096 oct 11  2017 UPower
+-rw-r--r--  1 root root    1018 ene 23  2017 usb_modeswitch.conf
+drwxr-xr-x  2 root root    4096 ene 23  2017 usb_modeswitch.d
+-rw-r--r--  1 root root      51 ene 12  2017 vdpau_wrapper.cfg
+drwxr-xr-x  2 root root    4096 oct 11  2017 vim
+-rw-r--r--  1 root root    4942 mar 18  2017 wgetrc
+drwxr-xr-x  2 root root    4096 feb  3 09:58 wpa_supplicant
+drwxr-xr-x 10 root root    4096 oct 11  2017 X11
+drwxr-xr-x  9 root root    4096 oct 11  2017 xdg
+drwxr-xr-x  2 root root    4096 oct 11  2017 xfce4
+drwxr-xr-x  3 root root    4096 oct 11  2017 xml
+root@virtual-desktop:/etc# cd /home/icalabrese/
+root@virtual-desktop:/home/icalabrese# ls -l
+total 836
+drwxr-xr-x 6 icalabrese icalabrese   4096 ene 27 09:44 111milS
+drwxr-xr-x 4 icalabrese icalabrese   4096 feb  3 09:35 aplicacion_bancaria
+-rw-r--r-- 1 icalabrese icalabrese   8806 may 19 12:42 conectors.sql
+drwxr-xr-x 2 icalabrese icalabrese   4096 jun  2 11:43 examenes
+drwxr-xr-x 5 icalabrese icalabrese   4096 mar 10 15:18 html
+-rw-r--r-- 1 icalabrese icalabrese  48871 may 12 13:10 modificaciones.txt
+-rw-r--r-- 1 icalabrese icalabrese  34895 may 19 13:52 pgadmin.log
+-rw-r--r-- 1 icalabrese icalabrese 713037 nov  3  2017 postgresql-42.1.4.jar
+-rw-r--r-- 1 icalabrese icalabrese    834 ene 27 16:51 primer_pagina_web.html
+drwxr-xr-x 5 icalabrese icalabrese   4096 may 19 10:29 Proyectos
+drwxr-xr-x 2 icalabrese icalabrese   4096 abr 14 13:53 soluciones
+drwxr-xr-x 2 icalabrese icalabrese   4096 may 19 10:19 sql
+drwxr-xr-x 7 icalabrese icalabrese   4096 nov 18  2017 src
+root@virtual-desktop:/home/icalabrese# cd Proyectos/GestiónProductos/
+productos/ sql/       
+root@virtual-desktop:/home/icalabrese# cd Proyectos/GestiónProductos/productos/
+root@virtual-desktop:/home/icalabrese/Proyectos/GestiónProductos/productos# ls -l
+total 12
+-rw-r--r-- 1 icalabrese icalabrese 1166 may 19 10:24 pom.xml
+drwxr-xr-x 3 icalabrese icalabrese 4096 may 19 10:26 src
+drwxr-xr-x 7 icalabrese icalabrese 4096 jun  9 10:32 target
+root@virtual-desktop:/home/icalabrese/Proyectos/GestiónProductos/productos# cd target/
+root@virtual-desktop:/home/icalabrese/Proyectos/GestiónProductos/productos/target# ls -l
+total 892
+drwxr-xr-x 3 icalabrese icalabrese   4096 may 19 13:13 classes
+drwxr-xr-x 3 icalabrese icalabrese   4096 may 19 13:13 generated-sources
+drwxr-xr-x 2 icalabrese icalabrese   4096 jun  9 10:32 maven-archiver
+drwxr-xr-x 3 icalabrese icalabrese   4096 may 19 13:13 maven-status
+drwxr-xr-x 6 icalabrese icalabrese   4096 jun  9 10:32 productos
+-rw-r--r-- 1 icalabrese icalabrese 889872 jun  9 10:32 productos.war
+root@virtual-desktop:/home/icalabrese/Proyectos/GestiónProductos/productos/target# systemctl status tomcat8
+● tomcat8.service - LSB: Start Tomcat.
+   Loaded: loaded (/etc/init.d/tomcat8; generated; vendor preset: enabled)
+   Active: active (running) since Sat 2018-06-09 11:13:57 -03; 33s ago
+     Docs: man:systemd-sysv-generator(8)
+   CGroup: /system.slice/tomcat8.service
+           └─3696 /usr/lib/jvm/default-java/bin/java -Djava.util.logging.config.file=/var/lib/tomcat8/conf/logging.properties -Djava.u
+
+jun 09 11:13:52 virtual-desktop systemd[1]: Starting LSB: Start Tomcat....
+jun 09 11:13:52 virtual-desktop su[3671]: Successful su for tomcat8 by root
+jun 09 11:13:52 virtual-desktop su[3671]: + ??? root:tomcat8
+jun 09 11:13:52 virtual-desktop su[3671]: pam_unix(su:session): session opened for user tomcat8 by (uid=0)
+jun 09 11:13:57 virtual-desktop tomcat8[3656]: Starting Tomcat servlet engine: tomcat8.
+jun 09 11:13:57 virtual-desktop systemd[1]: Started LSB: Start Tomcat..
+root@virtual-desktop:/home/icalabrese/Proyectos/GestiónProductos/productos/target# systemctl restart tomcat8
+root@virtual-desktop:/home/icalabrese/Proyectos/GestiónProductos/productos/target# cp productos.war /var/lib/tomcat8/webapps/
+root@virtual-desktop:/home/icalabrese/Proyectos/GestiónProductos/productos/target# cd /var/lib/tomcat8/
+root@virtual-desktop:/var/lib/tomcat8# ls -l
+total 12
+lrwxrwxrwx 1 root    root      12 sep  3  2017 conf -> /etc/tomcat8
+drwxr-xr-x 2 tomcat8 tomcat8 4096 sep  3  2017 lib
+lrwxrwxrwx 1 root    root      17 sep  3  2017 logs -> ../../log/tomcat8
+drwxr-xr-x 2 root    root    4096 jun  9 11:14 policy
+drwxrwxr-x 4 tomcat8 tomcat8 4096 jun  9 11:15 webapps
+lrwxrwxrwx 1 root    root      19 sep  3  2017 work -> ../../cache/tomcat8
+root@virtual-desktop:/var/lib/tomcat8# cd webapps/
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 880
+drwxr-x--- 6 tomcat8 tomcat8   4096 jun  9 11:15 productos
+-rw-r--r-- 1 root    root    889872 jun  9 11:15 productos.war
+drwxr-xr-x 3 root    root      4096 jun  9 11:13 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# cd productos/
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos# ls -l
+total 24
+drwxr-x--- 2 tomcat8 tomcat8 4096 jun  9 11:15 css
+-rw-r----- 1 tomcat8 tomcat8 3902 may 19 10:24 index.jsp
+drwxr-x--- 2 tomcat8 tomcat8 4096 jun  9 11:15 js
+drwxr-x--- 3 tomcat8 tomcat8 4096 jun  9 11:15 META-INF
+-rw-r----- 1 tomcat8 tomcat8 1282 may 19 10:24 table.jsp
+drwxr-x--- 4 tomcat8 tomcat8 4096 jun  9 11:15 WEB-INF
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos# ls -l
+total 24
+drwxr-x--- 2 tomcat8 tomcat8 4096 jun  9 11:15 css
+-rw-r----- 1 tomcat8 tomcat8 3902 may 19 10:24 index.jsp
+drwxr-x--- 2 tomcat8 tomcat8 4096 jun  9 11:15 js
+drwxr-x--- 3 tomcat8 tomcat8 4096 jun  9 11:15 META-INF
+-rw-r----- 1 tomcat8 tomcat8 1282 may 19 10:24 table.jsp
+drwxr-x--- 4 tomcat8 tomcat8 4096 jun  9 11:15 WEB-INF
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos# cd WEB-INF/
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos/WEB-INF# ls -l
+total 12
+drwxr-x--- 3 tomcat8 tomcat8 4096 jun  9 11:15 classes
+drwxr-x--- 2 tomcat8 tomcat8 4096 jun  9 11:15 lib
+-rw-r----- 1 tomcat8 tomcat8  721 may 19 10:24 web.xml
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos/WEB-INF# vim web.xml 
+root@virtual-desktop:/var/lib/tomcat8/webapps/productos/WEB-INF# cd --
+root@virtual-desktop:~# cd /var/lib/tomcat8/webapps/
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 880
+drwxr-x--- 6 tomcat8 tomcat8   4096 jun  9 11:15 productos
+-rw-r--r-- 1 root    root    889872 jun  9 11:15 productos.war
+drwxr-xr-x 3 root    root      4096 jun  9 11:13 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# rm -rf productos.war
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 8
+drwxr-x--- 6 tomcat8 tomcat8 4096 jun  9 11:15 productos
+drwxr-xr-x 3 root    root    4096 jun  9 11:13 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 8
+drwxr-x--- 6 tomcat8 tomcat8 4096 jun  9 11:15 productos
+drwxr-xr-x 3 root    root    4096 jun  9 11:13 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 8
+drwxr-x--- 6 tomcat8 tomcat8 4096 jun  9 11:15 productos
+drwxr-xr-x 3 root    root    4096 jun  9 11:13 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 4
+drwxr-xr-x 3 root root 4096 jun  9 11:13 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# logout
+icalabrese@virtual-desktop:~$ 
+icalabrese@virtual-desktop:~$ mvn archetype:generate -DgroupId=com.ignacio -DartifactId=productos -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Maven Stub Project (No POM) 1
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] >>> maven-archetype-plugin:3.0.1:generate (default-cli) > generate-sources @ standalone-pom >>>
+[INFO] 
+[INFO] <<< maven-archetype-plugin:3.0.1:generate (default-cli) < generate-sources @ standalone-pom <<<
+[INFO] 
+[INFO] --- maven-archetype-plugin:3.0.1:generate (default-cli) @ standalone-pom ---
+[INFO] Generating project in Batch mode
+^Cicalabrese@virtual-desktop:~$ ls -l
+total 836
+drwxr-xr-x 6 icalabrese icalabrese   4096 ene 27 09:44 111milS
+drwxr-xr-x 4 icalabrese icalabrese   4096 feb  3 09:35 aplicacion_bancaria
+-rw-r--r-- 1 icalabrese icalabrese   8806 may 19 12:42 conectors.sql
+drwxr-xr-x 2 icalabrese icalabrese   4096 jun  2 11:43 examenes
+drwxr-xr-x 5 icalabrese icalabrese   4096 mar 10 15:18 html
+-rw-r--r-- 1 icalabrese icalabrese  48871 may 12 13:10 modificaciones.txt
+-rw-r--r-- 1 icalabrese icalabrese  34895 may 19 13:52 pgadmin.log
+-rw-r--r-- 1 icalabrese icalabrese 713037 nov  3  2017 postgresql-42.1.4.jar
+-rw-r--r-- 1 icalabrese icalabrese    834 ene 27 16:51 primer_pagina_web.html
+drwxr-xr-x 5 icalabrese icalabrese   4096 may 19 10:29 Proyectos
+drwxr-xr-x 2 icalabrese icalabrese   4096 abr 14 13:53 soluciones
+drwxr-xr-x 2 icalabrese icalabrese   4096 may 19 10:19 sql
+drwxr-xr-x 7 icalabrese icalabrese   4096 nov 18  2017 src
+icalabrese@virtual-desktop:~$ cd .m2
+icalabrese@virtual-desktop:~/.m2$ ls -l
+total 8
+drwxr-xr-x 22 icalabrese icalabrese 4096 may 12 13:07 repository
+-rw-r--r--  1 icalabrese icalabrese  267 may 12 12:27 settings.xml
+icalabrese@virtual-desktop:~/.m2$ vim settings.xml 
+icalabrese@virtual-desktop:~/.m2$ cd 
+icalabrese@virtual-desktop:~$ mvn archetype:generate -DgroupId=com.ignacio -DartifactId=productos -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Maven Stub Project (No POM) 1
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] >>> maven-archetype-plugin:3.0.1:generate (default-cli) > generate-sources @ standalone-pom >>>
+[INFO] 
+[INFO] <<< maven-archetype-plugin:3.0.1:generate (default-cli) < generate-sources @ standalone-pom <<<
+[INFO] 
+[INFO] --- maven-archetype-plugin:3.0.1:generate (default-cli) @ standalone-pom ---
+[INFO] Generating project in Batch mode
+[WARNING] No archetype found in remote catalog. Defaulting to internal catalog
+[INFO] ----------------------------------------------------------------------------
+[INFO] Using following parameters for creating project from Old (1.x) Archetype: maven-archetype-webapp:1.0
+[INFO] ----------------------------------------------------------------------------
+[INFO] Parameter: basedir, Value: /home/icalabrese
+[INFO] Parameter: package, Value: com.ignacio
+[INFO] Parameter: groupId, Value: com.ignacio
+[INFO] Parameter: artifactId, Value: productos
+[INFO] Parameter: packageName, Value: com.ignacio
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+[INFO] project created from Old (1.x) Archetype in dir: /home/icalabrese/productos
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 02:11 min
+[INFO] Finished at: 2018-06-09T11:22:40-03:00
+[INFO] Final Memory: 14M/34M
+[INFO] ------------------------------------------------------------------------
+icalabrese@virtual-desktop:~$ ls -l
+total 840
+drwxr-xr-x 6 icalabrese icalabrese   4096 ene 27 09:44 111milS
+drwxr-xr-x 4 icalabrese icalabrese   4096 feb  3 09:35 aplicacion_bancaria
+-rw-r--r-- 1 icalabrese icalabrese   8806 may 19 12:42 conectors.sql
+drwxr-xr-x 2 icalabrese icalabrese   4096 jun  2 11:43 examenes
+drwxr-xr-x 5 icalabrese icalabrese   4096 mar 10 15:18 html
+-rw-r--r-- 1 icalabrese icalabrese  48871 may 12 13:10 modificaciones.txt
+-rw-r--r-- 1 icalabrese icalabrese  34895 may 19 13:52 pgadmin.log
+-rw-r--r-- 1 icalabrese icalabrese 713037 nov  3  2017 postgresql-42.1.4.jar
+-rw-r--r-- 1 icalabrese icalabrese    834 ene 27 16:51 primer_pagina_web.html
+drwxr-xr-x 3 icalabrese icalabrese   4096 jun  9 11:22 productos
+drwxr-xr-x 5 icalabrese icalabrese   4096 may 19 10:29 Proyectos
+drwxr-xr-x 2 icalabrese icalabrese   4096 abr 14 13:53 soluciones
+drwxr-xr-x 2 icalabrese icalabrese   4096 may 19 10:19 sql
+drwxr-xr-x 7 icalabrese icalabrese   4096 nov 18  2017 src
+icalabrese@virtual-desktop:~$ cd productos/
+icalabrese@virtual-desktop:~/productos$ ls -l
+total 8
+-rw-r--r-- 1 icalabrese icalabrese  713 jun  9 11:22 pom.xml
+drwxr-xr-x 3 icalabrese icalabrese 4096 jun  9 11:22 src
+icalabrese@virtual-desktop:~/productos$ cd src/
+icalabrese@virtual-desktop:~/productos/src$ ls -l
+total 4
+drwxr-xr-x 4 icalabrese icalabrese 4096 jun  9 11:22 main
+icalabrese@virtual-desktop:~/productos/src$ cd main/
+icalabrese@virtual-desktop:~/productos/src/main$ ls -l
+total 8
+drwxr-xr-x 2 icalabrese icalabrese 4096 jun  9 11:22 resources
+drwxr-xr-x 3 icalabrese icalabrese 4096 jun  9 11:22 webapp
+icalabrese@virtual-desktop:~/productos/src/main$ cd webapp/
+icalabrese@virtual-desktop:~/productos/src/main/webapp$ ls -l
+total 8
+-rw-r--r-- 1 icalabrese icalabrese   52 jun  9 11:22 index.jsp
+drwxr-xr-x 2 icalabrese icalabrese 4096 jun  9 11:22 WEB-INF
+icalabrese@virtual-desktop:~/productos/src/main/webapp$ cd ..
+icalabrese@virtual-desktop:~/productos/src/main$ cd ..
+icalabrese@virtual-desktop:~/productos/src$ cd ..
+icalabrese@virtual-desktop:~/productos$ ls
+pom.xml  src
+icalabrese@virtual-desktop:~/productos$ mvn clean compile package
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building productos Maven Webapp 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ productos ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ productos ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ productos ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ productos ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ productos ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ productos ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/icalabrese/productos/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ productos ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.17:test (default-test) @ productos ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-war-plugin:2.2:war (default-war) @ productos ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [productos] in [/home/icalabrese/productos/target/productos]
+[INFO] Processing war project
+[INFO] Copying webapp resources [/home/icalabrese/productos/src/main/webapp]
+[INFO] Webapp assembled in [52 msecs]
+[INFO] Building war: /home/icalabrese/productos/target/productos.war
+[INFO] WEB-INF/web.xml already added, skipping
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.197 s
+[INFO] Finished at: 2018-06-09T11:23:19-03:00
+[INFO] Final Memory: 9M/27M
+[INFO] ------------------------------------------------------------------------
+icalabrese@virtual-desktop:~/productos$ ls -l
+total 12
+-rw-r--r-- 1 icalabrese icalabrese  713 jun  9 11:22 pom.xml
+drwxr-xr-x 3 icalabrese icalabrese 4096 jun  9 11:22 src
+drwxr-xr-x 5 icalabrese icalabrese 4096 jun  9 11:23 target
+icalabrese@virtual-desktop:~/productos$ cd target/
+icalabrese@virtual-desktop:~/productos/target$ ls -l
+total 16
+drwxr-xr-x 2 icalabrese icalabrese 4096 jun  9 11:23 classes
+drwxr-xr-x 2 icalabrese icalabrese 4096 jun  9 11:23 maven-archiver
+drwxr-xr-x 4 icalabrese icalabrese 4096 jun  9 11:23 productos
+-rw-r--r-- 1 icalabrese icalabrese 2124 jun  9 11:23 productos.war
+icalabrese@virtual-desktop:~/productos/target$ sudo ^C -
+icalabrese@virtual-desktop:~/productos/target$ sudo cp productos.war /var/lib/tomcat8/webapps/
+icalabrese@virtual-desktop:~/productos/target$ su -
+Contraseña: 
+root@virtual-desktop:~# cd /var/lib/tomcat8/webapps/
+root@virtual-desktop:/var/lib/tomcat8/webapps# ls -l
+total 12
+drwxr-x--- 4 tomcat8 tomcat8 4096 jun  9 11:23 productos
+-rw-r--r-- 1 root    root    2124 jun  9 11:23 productos.war
+drwxr-xr-x 3 root    root    4096 jun  9 11:13 ROOT
+root@virtual-desktop:/var/lib/tomcat8/webapps# 

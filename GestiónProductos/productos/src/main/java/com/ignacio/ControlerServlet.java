@@ -47,7 +47,7 @@ public class ControlerServlet extends HttpServlet {
         
         try {
             String queryString = "select webapi_product_create('" + products + "')";
-            pgdriver.execute("ignacio", "1234", queryString);
+            pgdriver.execute("icalabrese", "7126", queryString);
             processRequest(request, response);
         } catch (Exception e) {
             System.out.println("error:" + e);
