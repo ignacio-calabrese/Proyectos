@@ -1,4 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page import="java.util.ArrayList, model.Products"%>
+
+<%= ArrayList<Products> tabla = new ArrayList<Products>() %>
+
 <!DOCTYPE html>
 <html lang="eS">
 <head>
@@ -27,6 +32,13 @@
                     <th>Nombre</th>
                 </tr>
                 <tr>
+                    <% for( Products datos : tabla) {%>
+                        <td><%datos.getCode()%></td>
+                        <td><%datos.getName()%></td>
+                        <td><%datos.getDescription()%></td>
+                        <td><%datos.getStock()%></td>
+                    <%}%>
+                
                     
                 </tr>
             </table>    

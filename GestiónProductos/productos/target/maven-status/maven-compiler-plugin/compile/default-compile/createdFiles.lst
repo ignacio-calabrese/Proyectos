@@ -1,2 +1,4 @@
 com/ignacio/ControlerServlet.class
 com/PGConnector.class
+model/Products.class
+com/ignacio/Servlet.class

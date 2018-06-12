@@ -23,21 +23,7 @@
                 <form action="\productos\ControlerServlet" method="post" id="dataForm">
                     <legend class="text-justify">Gestión de Productos</legend>
                     <input type="hidden" name="products" id="products" />
-                    <div class="form-group row">
-                        <label class="col-form-label col-sm-3" for="action">Acción</label>
-                        <div class="col-sm-9">
-                            <select class="custom-select" id="action">
-                                <option selected>Elija acción</option>
-                                <option value="insert">Insertar</option>
-                                <option value="update">Actualizar</option>
-                                <option value="delete">Borrar</option>
-                                <option value="selectAll">Ver tabla completa</option>
-                                <option value="getter">Ver dato</option>
-                                <option value="lookup">Ver fila</option>
-                                <option value="identify">Ver dato específico</option>
-                            </select>
-                        </div>
-                    </div> 
+                    
                     <div class="form-group row">
                         <label for="stock" class="col-form-label col-sm-3">Còdigo de Producto</label>
                         <div class="col-sm-9">
