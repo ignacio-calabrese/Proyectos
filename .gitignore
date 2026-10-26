@@ -1,0 +1,5 @@
+# Ignorar todos los archivos .class en cualquier subcarpeta
+*.class
+
+# Ignorar cualquier carpeta META-INF en cualquier nivel
+**/META-INF/
