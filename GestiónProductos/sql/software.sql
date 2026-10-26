@@ -2,7 +2,7 @@
 CREATE TABLE product (
 	id                            serial PRIMARY KEY,
 	name                          text NOT NULL UNIQUE,
-	descrition                    text,
+	description                    text,
 	stock                         integer NOT NULL CHECK (stock >= 0) DEFAULT 0
 );
 
@@ -15,7 +15,7 @@ CREATE OR REPLACE FUNCTION product (
 	IN p_stock                    integer
 ) RETURNS product AS
 $$
-	INSERT INTO product(name, descrition, stock)
+	INSERT INTO product(name, description, stock)
 		VALUES(p_name, p_description, p_stock)
 	RETURNING *;
 $$ LANGUAGE sql VOLATILE STRICT;
@@ -71,7 +71,7 @@ CREATE OR REPLACE FUNCTION product_get_description (
 	IN p_product                  product
 ) RETURNS text AS 
 $$
-	SELECT descrition(p_product);
+	SELECT description(p_product);
 $$ LANGUAGE sql STABLE STRICT;
 
 
@@ -97,7 +97,7 @@ CREATE OR REPLACE FUNCTION product_set_description (
 	IN p_description              text
 ) RETURNS void AS
 $$
-	UPDATE product p SET descrition = p_description WHERE p = p_product;
+	UPDATE product p SET description = p_description WHERE p = p_product;
 $$ LANGUAGE sql VOLATILE STRICT;
 
 
@@ -145,7 +145,8 @@ BEGIN
 		WHERE p = p_product;
 END;
 $$ LANGUAGE plpgsql VOLATILE STRICT;
-﻿--------------------------------------------------------------
+
+--------------------------------------------------------------
 ---Validar y crear
 -------------------------------------------------------------
 CREATE OR REPLACE FUNCTION webapi_product_validate (

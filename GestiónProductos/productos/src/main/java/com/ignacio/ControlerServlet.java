@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +23,8 @@ public class ControlerServlet extends HttpServlet {
         PGConnector pgdriver = new PGConnector("localhost", "gestionproductos");
         
         try {
-            String queryString = "select webapi_product_create('" + products + "')";
+            String queryString = "SELECT webapi_product_create('" + products + "')";
             pgdriver.execute("ignacio", "1234", queryString);
-           // processRequest(request, response);
             
         } catch (Exception e) {
 			System.out.println("error:" + e);

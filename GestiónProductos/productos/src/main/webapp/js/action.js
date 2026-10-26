@@ -10,7 +10,7 @@ $(document).on("ready", function(){
      
         
         var products = {
-            code: $("#code").val(),
+            //code: $("#code").val(),
             name: $("#name").val(),
             description: $("#description").val(),
             stock: $("#stock").val()
