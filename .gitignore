@@ -1,5 +1,8 @@
 # Ignorar todos los archivos .class en cualquier subcarpeta
 *.class
 
+# Salida de compilación de Maven, en cualquier nivel
+**/target/
+
 # Ignorar cualquier carpeta META-INF en cualquier nivel
 **/META-INF/
